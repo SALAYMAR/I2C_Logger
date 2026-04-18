@@ -63,64 +63,73 @@ Arduino подключается к датчику по проводам SDA (д
 ### Базовый пример кода
 ```
 #include <Wire.h>
-#include <RTClib.h>
+#include <LiquidCrystal_I2C.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
-RTC_DS3231 rtc;
+#define ONE_WIRE_BUS 2
 
-const int tempPin = A0;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensors(&oneWire);
+
+unsigned long previousMillis = 0;
+unsigned long currentSeconds = 0;
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Система запущена...");
   
-  Wire.begin();
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
   
-  // ПРОВЕРКА: пробуем инициализировать RTC
-  if (!rtc.begin()) {
-    Serial.println("Ошибка: RTC НЕ ОТВЕЧАЕТ!");
-    Serial.println("Проверьте подключение модуля RTC:");
-    Serial.println("- VCC -> 5V");
-    Serial.println("- GND -> GND");
-    Serial.println("- SDA -> A4");
-    Serial.println("- SCL -> A5");
-    Serial.println("Программа продолжит работу без RTC");
-  } else {
-    Serial.println("RTC модуль обнаружен!");
-    
-    // Устанавливаем время из времени компиляции, если RTC потерял питание
-    if (rtc.lostPower()) {
-      Serial.println("RTC потерял время, устанавливаю заново...");
-      rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-    }
-  }
+  sensors.begin();
   
-  Serial.println("Готов к работе! Начинаем вывод данных...");
+  delay(1000);
 }
 
 void loop() {
-  // Читаем температуру
-  int sensorValue = analogRead(tempPin);
-  float voltage = (sensorValue * 5.0) / 1024.0;
-  float temperature = (voltage - 0.5) * 100.0;
+  unsigned long currentMillis = millis();
   
-  // Пытаемся получить время с RTC
-  if (rtc.begin()) {  // Если RTC доступен
-    DateTime now = rtc.now();
+  if (currentMillis - previousMillis >= 1000) {
+    previousMillis = currentMillis;
+    currentSeconds++;
     
-    Serial.print(now.hour(), DEC);
-    Serial.print(" ,, ");
-    Serial.print(now.minute(), DEC);
-    Serial.print(" ,, ");
-    Serial.print(now.second(), DEC);
-    Serial.print(" темп ");
-    Serial.println(temperature, 1);
-  } else {
-    // Если RTC не отвечает — выводим только температуру
-    Serial.print("RTC не найден, темп ");
-    Serial.println(temperature, 1);
+    sensors.requestTemperatures();
+    float temperatureC = sensors.getTempCByIndex(0);
+    
+    unsigned long hh = (currentSeconds % 86400) / 3600;
+    unsigned long mm = (currentSeconds % 3600) / 60;
+    unsigned long ss = currentSeconds % 60;
+    
+    Serial.print(hh);
+    Serial.print(" ");
+    Serial.print(mm);
+    Serial.print(" ");
+    Serial.print(ss);
+    Serial.print(" темпер ");
+    Serial.print(temperatureC, 1);
+    Serial.println("C");
+    
+    lcd.setCursor(0, 0);
+    lcd.print("Time: ");
+    if (hh < 10) lcd.print("0");
+    lcd.print(hh);
+    lcd.print(":");
+    if (mm < 10) lcd.print("0");
+    lcd.print(mm);
+    lcd.print(":");
+    if (ss < 10) lcd.print("0");
+    lcd.print(ss);
+    lcd.print("  ");
+    
+    lcd.setCursor(0, 1);
+    lcd.print("Temp: ");
+    lcd.print(temperatureC, 1);
+    lcd.print(" C");
+    lcd.print("   ");
   }
-  
-  delay(1000);
 }
 ```
 ### Фото в сборе и данных
