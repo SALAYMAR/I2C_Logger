@@ -13,16 +13,18 @@ net user operator1 P@ssw0rd /add
 net user operator2 P@ssw0rd /add
 ```
 2. Создание папки Data
-cmd
+```
 mkdir C:\Data
-3. Настройка NTFS-прав
-cmd
+```
+4. Настройка NTFS-прав
+```
 icacls C:\Data /reset /t /q
 icacls C:\Data /inheritance:r
 icacls C:\Data /grant operator1:F
 icacls C:\Data /grant operator2:RX
-4. Проверка прав
-cmd
+```
+6. Проверка прав
+```
 icacls C:\Data
 Ожидаемый результат:
 C:\Data
@@ -30,6 +32,7 @@ C:\Data
     BUILTIN\Administrators:(F)
     WIN-...\operator1:(F)
     WIN-...\operator2:(RX)
+```
 Скетч для Задания №1 Arduino 
 Базовый пример кода
 ```
