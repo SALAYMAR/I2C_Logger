@@ -125,8 +125,6 @@ void loop() {
 ```
 ### Фото в сборе и данных
 <img width="3024" height="4032" alt="79D65678-33A7-4107-8DC9-F59490E3B72F" src="https://github.com/user-attachments/assets/94a825ba-bfd5-4444-ae19-03ba95883662" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bd72b8c8-673a-4add-89ba-b5e4a60b8f1f" />
 
-<img width="3024" height="4032" alt="FA6390D8-ABC7-449D-B0F0-463EF4C0FE16" src="https://github.com/user-attachments/assets/b624526e-05d9-4987-b940-7c2e9deddd45" />
-
-<img width="3024" height="4032" alt="142F8363-2728-43AB-8A94-59CCA48CC5D0" src="https://github.com/user-attachments/assets/47a8d75f-3007-4535-b221-d69f88388e7b" />
 
