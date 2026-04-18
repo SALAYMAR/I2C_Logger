@@ -98,7 +98,7 @@ void loop() {
 }
 ```
 Полный скрипт для Windows Server 2016
-cmd
+```
 net user operator1 P@ssw0rd /add
 net user operator2 P@ssw0rd /add
 mkdir C:\Data
