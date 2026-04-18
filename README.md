@@ -6,7 +6,7 @@
 
 Все команды выполняются в командной строке (cmd) от имени Администратора.
 
-### 1. Создание пользователей
+1. Создание пользователей
 
 ```cmd
 net user operator1 P@ssw0rd /add
@@ -16,14 +16,14 @@ net user operator2 P@ssw0rd /add
 ```
 mkdir C:\Data
 ```
-4. Настройка NTFS-прав
+3. Настройка NTFS-прав
 ```
 icacls C:\Data /reset /t /q
 icacls C:\Data /inheritance:r
 icacls C:\Data /grant operator1:F
 icacls C:\Data /grant operator2:RX
 ```
-6. Проверка прав
+4. Проверка прав
 ```
 icacls C:\Data
 Ожидаемый результат:
@@ -33,7 +33,7 @@ C:\Data
     WIN-...\operator1:(F)
     WIN-...\operator2:(RX)
 ```
-Скетч для Задания №1 Arduino 
+### Скетч для Задания №1 Arduino 
 Базовый пример кода
 ```
 #include <Wire.h>
@@ -107,6 +107,4 @@ icacls C:\Data /inheritance:r
 icacls C:\Data /grant operator1:F
 icacls C:\Data /grant operator2:RX
 icacls C:\Data
-text
-
-Вот. Копируй этот текст целиком и вставляй в README.md на GitHub
+```
