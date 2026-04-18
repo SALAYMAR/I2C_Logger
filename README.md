@@ -33,6 +33,8 @@ C:\Data
     WIN-...\operator1:(F)
     WIN-...\operator2:(RX)
 ```
+<img width="974" height="802" alt="image" src="https://github.com/user-attachments/assets/157d5878-bf45-4960-b16a-e42db3460b77" />
+
 ### Скетч для Задания №1 Arduino 
 Базовый пример кода
 ```
