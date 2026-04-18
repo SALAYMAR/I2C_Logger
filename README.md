@@ -11,6 +11,7 @@
 ```cmd
 net user operator1 P@ssw0rd /add
 net user operator2 P@ssw0rd /add
+```
 2. Создание папки Data
 cmd
 mkdir C:\Data
@@ -35,21 +36,63 @@ C:\Data
 Базовый пример кода
 cpp
 #include <Wire.h>
+#include <RTClib.h>
 
-#define DEVICE_ADDR 0x68
+RTC_DS3231 rtc;
+
+const int tempPin = A0;
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("Система запущена...");
+  
   Wire.begin();
+  
+  // ПРОВЕРКА: пробуем инициализировать RTC
+  if (!rtc.begin()) {
+    Serial.println("Ошибка: RTC НЕ ОТВЕЧАЕТ!");
+    Serial.println("Проверьте подключение модуля RTC:");
+    Serial.println("- VCC -> 5V");
+    Serial.println("- GND -> GND");
+    Serial.println("- SDA -> A4");
+    Serial.println("- SCL -> A5");
+    Serial.println("Программа продолжит работу без RTC");
+  } else {
+    Serial.println("RTC модуль обнаружен!");
+    
+    // Устанавливаем время из времени компиляции, если RTC потерял питание
+    if (rtc.lostPower()) {
+      Serial.println("RTC потерял время, устанавливаю заново...");
+      rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    }
+  }
+  
+  Serial.println("Готов к работе! Начинаем вывод данных...");
 }
 
 void loop() {
-  Wire.requestFrom(DEVICE_ADDR, 6);
-  while (Wire.available()) {
-    Serial.print(Wire.read());
-    Serial.print(" ");
+  // Читаем температуру
+  int sensorValue = analogRead(tempPin);
+  float voltage = (sensorValue * 5.0) / 1024.0;
+  float temperature = (voltage - 0.5) * 100.0;
+  
+  // Пытаемся получить время с RTC
+  if (rtc.begin()) {  // Если RTC доступен
+    DateTime now = rtc.now();
+    
+    Serial.print(now.hour(), DEC);
+    Serial.print(" ,, ");
+    Serial.print(now.minute(), DEC);
+    Serial.print(" ,, ");
+    Serial.print(now.second(), DEC);
+    Serial.print(" темп ");
+    Serial.println(temperature, 1);
+  } else {
+    // Если RTC не отвечает — выводим только температуру
+    Serial.print("RTC не найден, темп ");
+    Serial.println(temperature, 1);
   }
-  Serial.println();
+  
   delay(1000);
 }
 Загрузка на GitHub
