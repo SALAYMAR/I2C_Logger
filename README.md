@@ -123,14 +123,8 @@ void loop() {
   delay(1000);
 }
 ```
-### Полный скрипт для Windows Server 2016
-```
-net user operator1 P@ssw0rd /add
-net user operator2 P@ssw0rd /add
-mkdir C:\Data
-icacls C:\Data /reset /t /q
-icacls C:\Data /inheritance:r
-icacls C:\Data /grant operator1:F
-icacls C:\Data /grant operator2:RX
-icacls C:\Data
-```
+### Фото в сборе и данных
+<img width="3024" height="4032" alt="79D65678-33A7-4107-8DC9-F59490E3B72F" src="https://github.com/user-attachments/assets/94a825ba-bfd5-4444-ae19-03ba95883662" />
+<img width="3024" height="4032" alt="142F8363-2728-43AB-8A94-59CCA48CC5D0" src="https://github.com/user-attachments/assets/5a239247-af4f-4897-9818-771429512b32" />
+<img width="3024" height="4032" alt="FA6390D8-ABC7-449D-B0F0-463EF4C0FE16" src="https://github.com/user-attachments/assets/bf0d4ada-6f0c-4268-b395-b454a7211555" />
+
