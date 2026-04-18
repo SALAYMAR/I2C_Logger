@@ -25,14 +25,12 @@ icacls C:\Data /grant operator2:RX
 cmd
 icacls C:\Data
 Ожидаемый результат:
-
-text
 C:\Data
     NT AUTHORITY\SYSTEM:(F)
     BUILTIN\Administrators:(F)
     WIN-...\operator1:(F)
     WIN-...\operator2:(RX)
-Скетч для Arduino
+Скетч для Задания №1 Arduino 
 Базовый пример кода
 ```
 #include <Wire.h>
