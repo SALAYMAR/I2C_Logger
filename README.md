@@ -34,7 +34,7 @@ C:\Data
     WIN-...\operator2:(RX)
 Скетч для Arduino
 Базовый пример кода
-cpp
+```
 #include <Wire.h>
 #include <RTClib.h>
 
@@ -95,25 +95,7 @@ void loop() {
   
   delay(1000);
 }
-Загрузка на GitHub
-1. Создайте репозиторий на GitHub
-Название: I2C_Logger
-
-Скопируйте ссылку: https://github.com/ВАШ_ЛОГИН/I2C_Logger.git
-
-2. Выполните команды в cmd
-cmd
-cd C:\путь_к_вашей_папке
-git init
-git add .
-git commit -m "Первый коммит"
-git remote add origin https://github.com/ВАШ_ЛОГИН/I2C_Logger.git
-git push -u origin master
-3. Обновление изменений
-cmd
-git add .
-git commit -m "Описание изменений"
-git push
+```
 Полный скрипт для Windows Server 2016
 cmd
 net user operator1 P@ssw0rd /add
